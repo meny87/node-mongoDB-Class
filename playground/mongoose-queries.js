@@ -1,9 +1,17 @@
-const {ObjectID} = require ('mongodb');
+const {
+  ObjectID
+} = require('mongodb');
 
-const {mongoose} = require('./../server/db/mongoose.js');
-const {Todo} = require ('./../server/models/todo.js');
+const {
+  mongoose
+} = require('./../server/db/mongoose.js');
+const {
+  Todo
+} = require('./../server/models/todo.js');
 
-const {User} = require('./../server/models/user.js');
+const {
+  User
+} = require('./../server/models/user.js');
 
 /*var id = '5b75d6f5f7cecd129f1f57ac';
 if(!ObjectID.isValid(id)){
@@ -36,13 +44,15 @@ Todo.findById(id).then((todo) =>{
 });*/
 
 var id = '5b75f5a3ddc1310ac5f4c025';
-if(ObjectID.isValid(id)){
-User.findById(id).then((user) =>{
-  if(!user){
-    return console.log('User does not exist');
-  }
-  console.log(user);
-}).catch((e) =>{
-  console.log('Error', e.message);
-})}
-else{console.log('Invalid Id')};
+if (ObjectID.isValid(id)) {
+  User.findById(id).then((user) => {
+    if (!user) {
+      return console.log('User does not exist');
+    }
+    console.log(user);
+  }).catch((e) => {
+    console.log('Error', e.message);
+  })
+} else {
+  console.log('Invalid Id')
+};
