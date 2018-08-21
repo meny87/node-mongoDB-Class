@@ -72,17 +72,12 @@ app.get('/todos/:id', (req, res) => {
 
 // DElete routes
 app.delete('/todos/:id', (req, res) => {
-  //Get the id;
+
   var id = req.params.id;
-  //validate ID -> not valid? return 404
+
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
-  //remove todo by id
-  //sucess
-  //if not doc, send 404
-  //error
-  //400 with empty value
 
   Todo.findByIdAndRemove(id).then((todo) => {
     if (!todo) {
@@ -93,7 +88,7 @@ app.delete('/todos/:id', (req, res) => {
     });
   }).catch((e) => {
     res.status(400).send();
-  })
+  });
 });
 
 app.listen(port, () => {
