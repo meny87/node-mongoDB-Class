@@ -17,7 +17,9 @@ var dummyTodos = [{
   },
   {
     _id: new ObjectID,
-    text: 'Todo Test 2'
+    text: 'Todo Test 2',
+    completed: true,
+    completedAt: 333
   }
 ];
 
@@ -157,6 +159,49 @@ describe('DELETE /todos/:id', () => {
     request(app)
       .delete(`/todos/12312`)
       .expect(404)
+      .end(done);
+  });
+});
+
+describe('PATCH /todo/:id', () => {
+  it('should update the todo', (done) => {
+    var hexId = dummyTodos[0]._id.toHexString();
+    var text = 'Updating for Testing';
+
+    request(app)
+      .patch(`/todos/${hexId}`)
+      .send({
+        text,
+        completed: true
+      })
+      .expect(200)
+      .expect((res) => {
+        var todoL = res.body.todo;
+        expect(todoL.text).toBe(text);
+        expect(todoL.completed).toBe(true);
+        expect(todoL.completedAt).toBeA('number');
+      })
+      .end(done)
+  });
+
+
+
+  it('should completedAt when todo is not completed', (done) => {
+    var hexId = dummyTodos[1]._id.toHexString();
+    var text = 'Updating for Testing';
+
+    request(app)
+      .patch(`/todos/${hexId}`)
+      .send({
+        text,
+        completed: false
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.todo.text).toBe(text);
+        expect(res.body.todo.completed).toBe(false);
+        expect(res.body.todo.completedAt).toNotExist(null);
+      })
       .end(done);
   });
 });
