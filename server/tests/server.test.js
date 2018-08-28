@@ -184,8 +184,6 @@ describe('PATCH /todo/:id', () => {
       .end(done)
   });
 
-
-
   it('should completedAt when todo is not completed', (done) => {
     var hexId = dummyTodos[1]._id.toHexString();
     var text = 'Updating for Testing';
